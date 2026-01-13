@@ -1,0 +1,37 @@
+using Godot;
+using System;
+
+public partial class Ball : CharacterBody2D
+{
+	[Export]
+	public float Speed { get; set; } = 300.0f;
+	
+	private Vector2 _direction = Vector2.Zero;
+	
+	public override void _Ready()
+	{
+		// 1. Set an initial direction.
+		// For now, let's just shoot it right and slightly down.
+		// .Normalized() ensures the vector length is always 1 (consistent speed)
+		_direction = new Vector2(-1, 0.5f).Normalized();
+	}
+
+	public override void _PhysicsProcess(double delta)
+	{
+		// 2. Calculate the movement for this frame
+		// Velocity = Direction * Speed * Delta Time
+		Vector2 velocity = _direction * Speed * (float) delta;
+
+		// 3. Move and Check for Collisions
+		// MoveAndCollide moves the body. If it hits something, it returns data.
+		// If it hits nothing, it returns null.
+		KinematicCollision2D collision = MoveAndCollide(velocity);
+		
+		if (collision != null)
+		{
+			// GetNormal() tells us the angle of the wall we hit (e.g., pointing UP or LEFT)
+			// The Bounce() function does the vector math for us!
+			_direction = _direction.Bounce(collision.GetNormal());
+		}
+	}
+}
