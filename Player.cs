@@ -4,7 +4,19 @@ using System;
 public partial class Player : CharacterBody2D
 {
 	[Export]
-	public float Speed { get; set; } = 400.0f;
+	public float Speed { get; set; } = 500.0f;
+	
+	private float _halfHeight;
+
+	public override void _Ready()
+	{
+		Sprite2D sprite = GetNode<Sprite2D>("Sprite2D");
+
+		_halfHeight = (sprite.Texture.GetHeight() * sprite.Scale.Y) / 2.0f;
+		
+		GD.Print("Dynamic Half Height calculated: " + _halfHeight);
+		GD.Print("Texture Height calculated: " + sprite.Texture.GetHeight());
+	}
 
 	public override void _PhysicsProcess(double delta)
 	{
@@ -22,15 +34,10 @@ public partial class Player : CharacterBody2D
 		// 1. Get the screen size
 		float screenHeight = GetViewportRect().Size.Y;
 
-		// 2. Define a "buffer" (half the sprite height). 
-		// The Godot icon is roughly 128px, so half is 64.
-		// You can adjust this number until it looks right.
-		float halfHeight = 64.0f; 
-
 		// 3. Clamp between (0 + buffer) and (Screen - buffer)
 		GlobalPosition = new Vector2(
 			GlobalPosition.X, 
-			Mathf.Clamp(GlobalPosition.Y, halfHeight, screenHeight - halfHeight)
+			Mathf.Clamp(GlobalPosition.Y, _halfHeight, screenHeight - _halfHeight)
 		);
 	}
 }
