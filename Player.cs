@@ -22,8 +22,8 @@ public partial class Player : CharacterBody2D
 
 		_halfHeight = (sprite.Texture.GetHeight() * sprite.Scale.Y) / 2.0f;
 		
-		GD.Print("Dynamic Half Height calculated: " + _halfHeight);
-		GD.Print("Texture Height calculated: " + sprite.Texture.GetHeight());
+		// GD.Print("Dynamic Half Height calculated: " + _halfHeight);
+		// GD.Print("Texture Height calculated: " + sprite.Texture.GetHeight());
 	}
 
 	public override void _PhysicsProcess(double delta)

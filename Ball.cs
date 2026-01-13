@@ -4,16 +4,18 @@ using System;
 public partial class Ball : CharacterBody2D
 {
 	[Export]
-	public float Speed { get; set; } = 300.0f;
+	public float Speed { get; set; } = 500.0f;
 	
 	private Vector2 _direction = Vector2.Zero;
 	
 	public override void _Ready()
 	{
+		Random random = new Random();
+		Boolean shouldFireRight = random.NextDouble() < 0.5;
 		// 1. Set an initial direction.
 		// For now, let's just shoot it right and slightly down.
 		// .Normalized() ensures the vector length is always 1 (consistent speed)
-		_direction = new Vector2(-1, 0.5f).Normalized();
+		_direction = new Vector2(shouldFireRight ? -1 : 1, 0.5f).Normalized();
 	}
 
 	public override void _PhysicsProcess(double delta)
