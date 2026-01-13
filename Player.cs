@@ -6,6 +6,14 @@ public partial class Player : CharacterBody2D
 	[Export]
 	public float Speed { get; set; } = 500.0f;
 	
+	// We export the NAMES of the actions.
+	// Default them to the ones we made yesterday.
+	[Export]
+	public string UpAction { get; set; } = "move_up";
+
+	[Export]
+	public string DownAction { get; set; } = "move_down";
+	
 	private float _halfHeight;
 
 	public override void _Ready()
@@ -23,7 +31,7 @@ public partial class Player : CharacterBody2D
 		// GetInput() returns a Vector2 (X, Y).
 		// If we press Up, Y is -1. Down, Y is 1.
 		// We only care about Y for Pong.
-		float direction = Input.GetAxis("move_up", "move_down");
+		float direction = Input.GetAxis(UpAction, DownAction);
 
 		// Set the built-in Velocity property
 		Velocity = new Vector2(0, direction * Speed);
