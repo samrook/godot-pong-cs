@@ -10,12 +10,7 @@ public partial class Ball : CharacterBody2D
 	
 	public override void _Ready()
 	{
-		Random random = new Random();
-		Boolean shouldFireRight = random.NextDouble() < 0.5;
-		// 1. Set an initial direction.
-		// For now, let's just shoot it right and slightly down.
-		// .Normalized() ensures the vector length is always 1 (consistent speed)
-		_direction = new Vector2(shouldFireRight ? -1 : 1, 0.5f).Normalized();
+		ResetDirection();
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -35,5 +30,32 @@ public partial class Ball : CharacterBody2D
 			// The Bounce() function does the vector math for us!
 			_direction = _direction.Bounce(collision.GetNormal());
 		}
+	}
+	
+	public void Reset(Vector2 startPosition)
+	{
+		// 1. Teleport back to the middle
+		GlobalPosition = startPosition;
+		
+		ResetDirection();
+	}
+	
+	private bool ShouldFireRight()
+	{
+		Random random = new Random();
+		
+		return random.NextDouble() < 0.5;
+	}
+	
+	private void ResetDirection()
+	{
+		// 1. Randomize the direction slightly so it's not boring
+		// (We pick a random angle between -45 and +45 degrees roughly
+		float randomY = (float)GD.RandRange(-0.5, 0.5);
+		bool shouldFireRight = ShouldFireRight();
+		
+		// 2. Set the direction.
+		// .Normalized() ensures the vector length is always 1 (consistent speed)
+		_direction = new Vector2(shouldFireRight ? -1 : 1, randomY).Normalized();
 	}
 }
