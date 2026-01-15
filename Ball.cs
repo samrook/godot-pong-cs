@@ -4,7 +4,7 @@ using System;
 public partial class Ball : CharacterBody2D
 {
 	[Export]
-	public float Speed { get; set; } = 500.0f;
+	public float Speed { get; set; } = 700.0f;
 	
 	private Vector2 _direction = Vector2.Zero;
 	

@@ -4,7 +4,7 @@ using System;
 public partial class Player : CharacterBody2D
 {
 	[Export]
-	public float Speed { get; set; } = 500.0f;
+	public float Speed { get; set; } = 600.0f;
 	
 	// We export the NAMES of the actions.
 	// Default them to the ones we made yesterday.
