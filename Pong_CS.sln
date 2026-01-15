@@ -1,6 +1,6 @@
 ﻿Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "New Game Project", "New Game Project.csproj", "{3AE2FF62-2446-423B-9C4B-AFB297AFB5E5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pong_CS", "Pong_CS.csproj", "{3AE2FF62-2446-423B-9C4B-AFB297AFB5E5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
