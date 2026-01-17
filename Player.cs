@@ -15,12 +15,16 @@ public partial class Player : CharacterBody2D
 	public string DownAction { get; set; } = "move_down";
 	
 	private float _halfHeight;
+	
+	private float _fixedX;
 
 	public override void _Ready()
 	{
 		Sprite2D sprite = GetNode<Sprite2D>("Sprite2D");
 
 		_halfHeight = (sprite.Texture.GetHeight() * sprite.Scale.Y) / 2.0f;
+		
+		_fixedX = Position.X;
 		
 		// GD.Print("Dynamic Half Height calculated: " + _halfHeight);
 		// GD.Print("Texture Height calculated: " + sprite.Texture.GetHeight());
@@ -41,6 +45,8 @@ public partial class Player : CharacterBody2D
 		
 		// 1. Get the screen size
 		float screenHeight = GetViewportRect().Size.Y;
+		
+		Position = new Vector2(_fixedX, Position.Y);
 
 		// 3. Clamp between (0 + buffer) and (Screen - buffer)
 		GlobalPosition = new Vector2(
